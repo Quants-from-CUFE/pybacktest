@@ -3,7 +3,6 @@ import numpy as np
 import yfinance as yf
 from yahoo_fin.stock_info import tickers_sp500
 from datetime import datetime, timedelta
-import matplotlib.pyplot as plt
 import pickle
 import os
 import logging
@@ -36,8 +35,8 @@ class MarketData:
             self.df = self.get_yahoo_historical(
                 start_date=start_date, end_date=end_date
             )
-            self.datalist = list(set(x[0] for x in self.df.columns))
 
+            self.datalist = list(set(x[0] for x in self.df.columns))
         if self.source == "local":
             self.df = self.get_local(filename=filename, filetype=filetype)
         return self.df
