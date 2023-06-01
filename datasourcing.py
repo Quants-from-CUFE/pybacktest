@@ -36,7 +36,7 @@ class MarketData:
                 start_date=start_date, end_date=end_date
             )
 
-            self.datalist = list(set(x[0] for x in self.df.columns))
+            self.fields_names = list(set(x[0] for x in self.df.columns))
         if self.source == "local":
             self.df = self.get_local(filename=filename, filetype=filetype)
         return self.df
