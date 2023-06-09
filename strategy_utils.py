@@ -51,6 +51,11 @@ class StockStrategy:
         if isinstance(self.signals, pd.DataFrame):
             self.signals = self.signals.apply(LS_equal, axis=1)
 
+        if self.test_ret.shape[1] == 1:
+            self.strategy_ret_all = (self.test_ret.mul(self.signals))
+        else:
+            self.strategy_ret_all = (self.test_ret.mul(self.signals)).sum(axis=1)
+
         return self.signals
     # Define functions for evaluating portfolio's performance
     def evaluate(self, riskfree=0):
