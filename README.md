@@ -10,7 +10,7 @@
 
 ### 1.2 Data import
 
-### 1.3 Data vitualize
+### 1.3 Data visualize
 
 ## 2-Signal generation
 
