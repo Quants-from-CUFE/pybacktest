@@ -57,10 +57,12 @@ class StockStrategy:
             self.strategy_ret_all = (self.test_ret.mul(self.signals)).sum(axis=1)
 
         return self.signals
+    
     # Define functions for evaluating portfolio's performance
-    def evaluate(self, riskfree=0):
+    def evaluate(self, riskfree=0, benchmark=None):
         data = (1 + self.strategy_ret_all).cumprod()
         self.performance = data
+        self.benchmark = benchmark
         # compute max drawdown
         def Max_DD(data):
             answer = max(1 - data / data.cummax())
@@ -73,7 +75,12 @@ class StockStrategy:
 
         # compute return
         def all_return(data):
-            return (data.iloc[-1] - data.iloc[0]) / data.iloc[0]
+            if not self.benchmark:
+                return (data.iloc[-1] - data.iloc[0]) / data.iloc[0]
+            else:
+                benchmark = self.benchmark
+                benchmark_return = (benchmark.iloc[-1] - benchmark.iloc[0]) / benchmark.iloc[0]
+                return (data.iloc[-1] - data.iloc[0]) / data.iloc[0] - benchmark_return
 
         # compute annualized return
         def annual_return(data):
